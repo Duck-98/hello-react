@@ -1,8 +1,8 @@
 import React from 'react';
-import Say from './Say';
+import IterationSample from './lterationSample';
 
 const App = () => {
-  return <Say />;
+  return <IterationSample />;
 };
 
 export default App;
