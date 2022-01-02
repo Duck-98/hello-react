@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LifeCycleSample from './LifeCycleSample';
-
+import ErrorBoundary from './ErrorBoundary';
 //const App = () => {
 //  return <LifeCycleSample />;
 //};
@@ -24,7 +24,9 @@ class App extends Component {
     return (
       <div>
         <button onClick={this.handleClick}>랜덤 색상</button>
-        <LifeCycleSample color={this.state.color} />
+        <ErrorBoundary>
+          <LifeCycleSample color={this.state.color} />
+        </ErrorBoundary>
       </div>
     );
   }
