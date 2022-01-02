@@ -12,6 +12,7 @@ did 접두사가 붙은 메서드는 어떤 작업을 작동된 후에 실행되
 - 업데이트 -> 컴포넌트 정보를 업데이트
 - 마운트 -> 페이지에 컴포넌트가 나타남
 - 언마운트 -> 페이지에서 컴포넌트가 사라짐
+  <img width="70%" src="https://user-images.githubusercontent.com/72850354/147877694-eadc6348-1254-4f8e-970e-86e9fa73e9ca.png"/>
 
 ### 마운트?
 
@@ -50,3 +51,11 @@ componentDidMount : 컴포넌트가 웹 브라우저상에 나타난 후 호출�
    : component를 rerendering 합니다.
 4. getSnapshotBeforeUpdate : component의 변화를 DOM에 반영하기 바로 직전에 호출하는 메소드
 5. componentDidUpdate : 컴포넌트의 업데이트 작업이 끝난 후 호출하는 메소드.
+6. componentDidCatch : 오류를 캐치해주는 메소드
+
+### 정리
+
+라이프 사이클 메서드는 컴포넌트 상태의 변화가 있을 때마다 실행하는 메서드다.
+서드파티 라이버리를 사용하거나 DOM을 직접 건드려야하는 상황에서 유용하다.
+
+컴포넌트 업데이트의 성능을 개선하기 위해서는 shouldComponentUpdate가 중요하게 사용된다.
