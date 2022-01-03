@@ -1,8 +1,8 @@
 import React from 'react';
-import Counter from './Chapter 8/Counter';
+import Info from './Chapter 8/Info';
 
 const App = () => {
-  return <Counter />;
+  return <Info />;
 };
 /*import LifeCycleSample from './LifeCycleSample';
 import ErrorBoundary from './ErrorBoundary';
