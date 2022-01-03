@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import LifeCycleSample from './LifeCycleSample';
+import React from 'react';
+import Counter from './Chapter 8/Counter';
+
+const App = () => {
+  return <Counter />;
+};
+/*import LifeCycleSample from './LifeCycleSample';
 import ErrorBoundary from './ErrorBoundary';
-//const App = () => {
-//  return <LifeCycleSample />;
-//};
 
 function getRandomColor() {
   return '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -31,5 +33,6 @@ class App extends Component {
     );
   }
 }
+*/
 
 export default App;
