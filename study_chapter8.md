@@ -143,7 +143,7 @@ action 값을 받아 새로운 상태로 변환 -> 불변성 유지
 컴포넌트 외부에 함수로 설정
 useReducer의 가장 큰 장점 : 컴포넌트 업데이트 로직을 컴포넌트 바깥으로 빼낸다.
 
-1. 카운터 구현
+#### 카운터 구현
 
 ```js
 function reducer(state, action) {
@@ -242,3 +242,79 @@ return (
 ```
 
 name, value 값 설정 후, e.target 자체를 dispatch의 타입으로 전달
+
+### useMemo
+
+함수 컴포넌트 내부에서 발생하는 연산을 최적화할 수 있다.
+
+```js
+const getAverage = numbers => {
+  console.log('평균값 계산중..');
+  if(numbers.length === 0) return 0;
+  const sum = numbers.reduce((a,b) => a+b);
+  return sum / numbers.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState('');
+
+  const onChange =e => {
+    setNumber(e.target.value);
+  };
+
+  const onInsert = () => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber('');
+   };
+const avg = useMemo( ()=> getAverage(list), [list]);
+
+return (
+  <div>
+    <input value={number} onChange={onChange} />
+    <button onClick={onInsert}>등록 </button>
+    <ul>
+    {list.map((value,index) => (
+      <li key = {index}>{value}</li>
+    ))}
+    </ul>
+    <div>
+      <b>평균값 :</b> {avg}
+    </div>
+  </div>
+);
+};
+
+export default Average;
+
+}
+```
+
+### useCallback
+
+useMemo와 비슷한 함수이다. 주로 렌더링 성능을 최적화해야 하는 상황에서 사용되며
+이벤트 헨들러 함수를 필요할 때만 생성할 수 있게 해준다.
+
+### useMemo와 useCallback의 차이
+
+useMemo -> 특정 상태 업데이트 될 때만 연산 호출할 수 있게 최적화한다.
+useCallback -> 특정 상태 업데이트 될 때 렌더링할 것을 선택해서 렌더링 성능 최적화함.
+
+### useRef
+
+useRef는 함수형 컴포턴트에서 ref를 쉽게 사용할 수 있도록 해준다.
+
+#### ref -> DOM
+
+```js
+const inputEl = useRef(null);
+
+const onInsert = useCallback(e => {
+  ...
+  inputEl.current.focus();
+})
+
+<input value={number} onChange={onChange} ref={inputEl} />
+<button onClick={onInsert}>등록</button>
+```

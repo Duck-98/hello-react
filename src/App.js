@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Info from './Chapter 8/Info';
 
 const App = () => {
-  return <Info />;
+  const [visible, setVisible] = useState(false);
+  const onClick = () => {
+    setVisible(!visible);
+  };
+  return (
+    <>
+      <button onClick={onClick}>{visible ? '보이기' : '숨기기'}</button>
+      <hr />
+      {visible && <Info />}
+    </>
+  );
 };
 /*import LifeCycleSample from './LifeCycleSample';
 import ErrorBoundary from './ErrorBoundary';
