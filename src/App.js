@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
-import Info from './Chapter 8/Info';
+import React from 'react';
+import Average from './Chapter 8/Average';
 
 const App = () => {
-  const [visible, setVisible] = useState(false);
-  const onClick = () => {
-    setVisible(!visible);
-  };
-  return (
-    <>
-      <button onClick={onClick}>{visible ? '보이기' : '숨기기'}</button>
-      <hr />
-      {visible && <Info />}
-    </>
-  );
+  return <Average />;
 };
+
 /*import LifeCycleSample from './LifeCycleSample';
 import ErrorBoundary from './ErrorBoundary';
 
