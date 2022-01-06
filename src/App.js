@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import SassComponent from './Chapter 9/SassComponent';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <SassComponent />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return <div>Todo App</div>;
+};
 
 /*
 class App extends Component {
