@@ -18,13 +18,13 @@ const TodoInsert = ({ onInsert }) => {
   );
 
   return (
-    <form className="TodoInsert">
+    <form className="TodoInsert" onSubmit={onSubmit}>
       <input
         placeholder="할 일을 입력해주세요"
         value={value}
         onChange={onChange}
       />
-      <button type="submit" onSubmit={onSubmit}>
+      <button type="submit">
         <MdAdd />
       </button>
     </form>
