@@ -2,60 +2,47 @@ import React, { useState, useRef, useCallback } from 'react';
 import TodoInsert from './Chapter 10/components/TodoInsert';
 import TodoTemplate from './Chapter 10/components/TodoTemplate';
 import TodoList from './Chapter 10/components/TodoList';
-const App = () => {
-  const [todos, setTodos] = useState([
-    {
+
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+    array.push({
       id: 1,
-      text: '리액트 공부하기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '웨이트 운동하기',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '물 2리터 마시기',
-      checked: true,
-    },
-    {
-      id: 4,
-      text: 'Velog 업데이트하기',
+      text: `할 일 ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+  return array;
+}
+
+const App = () => {
+  const [todos, setTodos] = useState(createBulkTodos);
   // 고윳값으로 사용될 id
   // ref를 이용하여 변수 담기
   const nextId = useRef(5);
 
-  const onRemove = useCallback(
-    (id) => {
-      setTodos(todos.filter((todo) => todo.id !== id)); // filter 함수를 이용하여  겉운 id를 갖고 있는 항목을 삭제
-    },
-    [todos],
-  );
+  const onRemove = useCallback((id) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id)); // filter 함수를 이용하여  겉운 id를 갖고 있는 항목을 삭제
+  }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onToggle = useCallback((id) => {
-    setTodos(
+    setTodos((todos) =>
       todos.map((todo) =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo,
       ),
     );
   });
 
-  const onInsert = useCallback(
-    (text) => {
-      const todo = {
-        id: nextId.current,
-        text,
-        checked: false,
-      };
-      setTodos(todos.concat(todo));
-      nextId.current += 1;
-    },
-    [todos],
-  );
+  const onInsert = useCallback((text) => {
+    const todo = {
+      id: nextId.current,
+      text,
+      checked: false,
+    };
+    setTodos((todos) => todos.concat(todo));
+    nextId.current += 1;
+  }, []);
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
