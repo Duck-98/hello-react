@@ -10,9 +10,10 @@ const TodoList = ({ todos, onRemove, onToggle }) => {
       return (
         <TodoListItem
           todo={todo}
-          key={todo.id}
+          key={key}
           onRemove={onRemove}
           onToggle={onToggle}
+          style={style}
         />
       );
     },
