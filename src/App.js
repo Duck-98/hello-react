@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useReducer } from 'react';
 import TodoInsert from './Chapter 10/components/TodoInsert';
 import TodoTemplate from './Chapter 10/components/TodoTemplate';
 import TodoList from './Chapter 10/components/TodoList';
@@ -15,13 +15,30 @@ function createBulkTodos() {
   return array;
 }
 
+function todoReducer(todos, action) {
+  switch (action.type) {
+    case 'Insert':
+      //{type : 'Insert', todo : {id : 1, text: 'todo', checked : 'false'}}
+      return todos.concat(action.todo);
+    case 'Remove':
+      //{type : 'Remove', id : 1}
+      return todos.filter((todo) => todo.id !== action.id);
+    case 'Toggle':
+      return todos.map((todo) =>
+        todo.id === action.id ? { ...todo, checked: !todo.checked } : todo,
+      );
+    default:
+      return todos;
+  }
+}
+
 const App = () => {
-  const [todos, setTodos] = useState(createBulkTodos);
+  const [todos, dispatch] = useReducer(todoReducer, undefined, createBulkTodos);
   // 고윳값으로 사용될 id
   // ref를 이용하여 변수 담기
   const nextId = useRef(5);
 
-  const onRemove = useCallback((id) => {
+  /*const onRemove = useCallback((id) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== id)); // filter 함수를 이용하여  겉운 id를 갖고 있는 항목을 삭제
   }, []);
 
@@ -33,6 +50,7 @@ const App = () => {
       ),
     );
   });
+*/
 
   const onInsert = useCallback((text) => {
     const todo = {
@@ -40,9 +58,18 @@ const App = () => {
       text,
       checked: false,
     };
-    setTodos((todos) => todos.concat(todo));
+    dispatch({ type: 'Insert', todo });
     nextId.current += 1;
   }, []);
+
+  const onRemove = useCallback((id) => {
+    dispatch({ type: 'Remove', id });
+  }, []);
+
+  const onToggle = useCallback((id) => {
+    dispatch({ type: 'Toggle', id });
+  }, []);
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
