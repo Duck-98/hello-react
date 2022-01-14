@@ -41,9 +41,13 @@
       color: #abd5bd;
     }
   }
-
-  & + & {
-    // 엘리먼트 사이에 테두리 생성
-    border-top: 1px solid #dee2e6;
+  .TodoListItem-virtualized {
+    & + & {
+      // 엘리먼트 사이에 테두리 생성
+      border-top: 1px solid #dee2e6;
+    }
+    &:nth-child(even) {
+      background: #f8f9fa;
+    }
   }
 }
